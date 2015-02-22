@@ -24,17 +24,16 @@ class Room(object):
 class House(object):
     "Map of the house" #comment explanation
     
-    def __init__(self):
-       self.rooms = [Room("The Cellar"),
-                     Room("The Hallway"),
-                     Room("The Casino"),
-                     Room("The Library"),
-                     Room("The Living Room"),
-                     Room("The Toilet"),
-                     Room("The Kitchen"),
-                     Room("The Secret Room")]
-        
-    
- 
+    def __init__(self, name):
+       self.cellar = Room("The Cellar")
+       self.hallway = Room("The Hallway")
+       self.casino = Room("The Casino")
+       self.library = Room("The Library")
+       self.living_room = Room("The Living Room")
+       self.toilet = Room("The Toilet")
+       self.kitchen = Room("The Kitchen")
+       self.secret_room = Room("The Secret Room")
+       self.name = name
+
 
 
