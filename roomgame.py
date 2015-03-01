@@ -50,13 +50,19 @@ class Character(object):
 
     def pick_up(self, obj):
 	"Pick up things the character is in."
+	if not obj in self.position.content:
+	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
 	self.position.content.remove(obj)
 	self.content.append(obj)
+	return "You picked up "+str(obj)+"."
 
     def drop(self, obj):
 	"Drop things in the characters current room."
+	if not obj in self.content:
+	    return "You can not drop what you do not have."
 	self.content.remove(obj)
 	self.position.content.append(obj)
+	return "You dropped "+str(obj)+"."
 
     def movenorth(self):
 	if self.position.north == False:
