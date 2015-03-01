@@ -39,7 +39,28 @@ class House(object):
 	self.secret_room = Room("The Secret Room")
 	self.master_bedroom = Room("The Master Bedroom")
 	self.guest_bedroom = Room("The Guest Bedroom")
-	
+        
+        # The house and the connection between rooms.
+	self.hallway.south = self.toilet
+        self.hallway.west = self.cellar
+        self.hallway.east = self.living_room
+        self.cellar.east = self.hallway
+        self.toilet.north = self.hallway
+        self.living_room.south = self.casino
+        self.living_room.west = self.hallway
+        self.living_room.east = self.kitchen
+        self.kitchen.south = self.master_bedroom
+        self.kitchen.west = self.living_room
+        self.casino.north = self.living_room
+        self.casino.south = self.secret_room
+        self.casino.west = self.library
+        self.casino.east = self.master_bedroom
+        self.master_bedroom.north = self.kitchen
+        self.master_bedroom.west = self.casino
+        self.library.south = self.guest_bedroom
+        self.guest_bedroom.north = self.library
+        self.secret_room.north = self.casino
+
 
 class Character(object):
 
@@ -49,7 +70,7 @@ class Character(object):
 	self.position = position
 
     def pick_up(self, obj):
-	"Pick up things the character is in."
+	"Pick up things from the room the character is in."
 	self.position.content.remove(obj)
 	self.content.append(obj)
 
@@ -93,38 +114,10 @@ class Character(object):
         return "You are in "+self.position.name+". "+"In your inventory there are " + " and ".join(inventory)+"."
 
 
-# The house and the connection between rooms.
-lvl1 = House()
-
-lvl1.hallway.south = lvl1.toilet
-lvl1.hallway.west = lvl1.cellar
-lvl1.hallway.east = lvl1.living_room
-
-lvl1.cellar.east = lvl1.hallway
-
-lvl1.toilet.north = lvl1.hallway
-
-lvl1.living_room.south = lvl1.casino
-lvl1.living_room.west = lvl1.hallway
-lvl1.living_room.east = lvl1.kitchen
-
-lvl1.kitchen.south = lvl1.master_bedroom
-lvl1.kitchen.west = lvl1.living_room
-
-lvl1.casino.north = lvl1.living_room
-lvl1.casino.south = lvl1.secret_room
-lvl1.casino.west = lvl1.library
-lvl1.casino.east = lvl1.master_bedroom
-
-lvl1.master_bedroom.north = lvl1.kitchen
-lvl1.master_bedroom.west = lvl1.casino
-
-lvl1.library.south = lvl1.guest_bedroom
-
-lvl1.guest_bedroom.north = lvl1.library
-
-lvl1.secret_room.north = lvl1.casino
 
 
-player = Character("Murneh", lvl1.hallway)
+
+my_house=House()
+your_house=House()
+player = Character("Murneh", my_house.hallway)
 
