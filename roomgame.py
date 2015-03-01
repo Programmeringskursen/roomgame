@@ -39,6 +39,9 @@ class House(object):
 	self.secret_room = Room("The Secret Room")
 	self.master_bedroom = Room("The Master Bedroom")
 	self.guest_bedroom = Room("The Guest Bedroom")
+        self.corridor_west = Room("The west corridor")
+        self.corridor_east = Room("The east corridor")
+        
         
         # The house and the connection between rooms.
 	self.hallway.south = self.toilet
@@ -60,6 +63,9 @@ class House(object):
         self.library.south = self.guest_bedroom
         self.guest_bedroom.north = self.library
         self.secret_room.north = self.casino
+        
+   
+        
 
 
 class Character(object):
@@ -130,4 +136,5 @@ class Character(object):
 my_house=House()
 your_house=House()
 player = Character("Murneh", my_house.hallway)
+
 
