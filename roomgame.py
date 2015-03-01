@@ -85,33 +85,37 @@ class Character(object):
 	self.position.content.append(obj)
 	return "You dropped "+str(obj)+"."
 
-    def movenorth(self):
-	if self.position.north == False:
-	  return "You can't, there is no door here."
-	else:
-	  self.position = self.position.north
-	  return "You enter the "+self.position.name+"."
 
-    def movesouth(self):
-	if self.position.south == False:
-	  return "You can't, there is no door here."
-	else:
-	  self.position = self.position.south
-	  return "You enter the "+self.position.name+"."
 
-    def movewest(self):
-	if self.position.west == False:
-	  return "You can't, there is no door here."
-	else:
-	  self.position = self.position.west
-	  return "You enter the "+self.position.name+"."
+    def move(self, direction):
+        if direction=="north":
+            if self.position.north == False:
+                return "You can't, there is no door here."
+            else:
+	        self.position = self.position.north
+                return "You enter the "+self.position.name+"."
+        elif direction=="south":
+        
+            if self.position.south == False:
+                return "You can't, there is no door here."
+            else:
+                self.position = self.position.south
+                return "You enter the "+self.position.name+"."
+        elif direction=="west":
+            
+            if self.position.west == False:
+                return "You can't, there is no door here."
+            else:
+                self.position = self.position.west
+                return "You enter the "+self.position.name+"."
+        elif direction=="east":
 
-    def moveeast(self):
-	if self.position.east == False:
-	  return "You can't, there is no door here."
-	else:
-	  self.position = self.position.east
-	  return "You enter the "+self.position.name+"."
+            if self.position.east == False:
+                return "You can't, there is no door here."
+            else:
+                self.position = self.position.east
+                return "You enter the "+self.position.name+"."
+
 
     def __str__(self):
         inventory = []
