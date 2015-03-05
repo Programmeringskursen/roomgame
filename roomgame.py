@@ -39,8 +39,8 @@ class House(object):
 	self.secret_room = Room("The Secret Room")
 	self.master_bedroom = Room("The Master Bedroom")
 	self.guest_bedroom = Room("The Guest Bedroom")
-        self.corridor_west = Room("The west corridor")
-        self.corridor_east = Room("The east corridor")
+        self.corridor_west = Room("The West corridor")
+        self.corridor_east = Room("The East corridor")
         
         
         # The house and the connection between rooms.
@@ -49,24 +49,26 @@ class House(object):
         self.hallway.east = self.living_room
         self.cellar.east = self.hallway
         self.toilet.north = self.hallway
-        self.living_room.south = self.casino
+        self.living_room.south = self.corridor_west
         self.living_room.west = self.hallway
         self.living_room.east = self.kitchen
-        self.kitchen.south = self.master_bedroom
+        self.kitchen.south = self.corridor_east
         self.kitchen.west = self.living_room
-        self.casino.north = self.living_room
+	self.corridor_west.north = self.living_room
+	self.corridor_west.south = self.casino
+	self.corridor_east.north = self.kitchen
+	self.corridor_east.south = self.master_bedroom
+        self.casino.north = self.corridor_west
         self.casino.south = self.secret_room
         self.casino.west = self.library
         self.casino.east = self.master_bedroom
         self.master_bedroom.north = self.kitchen
         self.master_bedroom.west = self.casino
+	self.library.east = self.casino
         self.library.south = self.guest_bedroom
         self.guest_bedroom.north = self.library
         self.secret_room.north = self.casino
-        
-   
-        
-
+	self.map = [[None, None, None, None], [None, None, None, None], [None, None, None, None], [None, None, None, None]]
 
 class Character(object):
 
