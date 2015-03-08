@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#åäö i kommentarer^
 class Room(object):
     "Our little game"
     
@@ -39,8 +41,8 @@ class House(object):
 	self.secret_room = Room("The Secret Room")
 	self.master_bedroom = Room("The Master Bedroom")
 	self.guest_bedroom = Room("The Guest Bedroom")
-        self.corridor_west = Room("The West corridor")
-        self.corridor_east = Room("The East corridor")
+        self.corridor_west = Room("The West Corridor")
+        self.corridor_east = Room("The East Corridor")
         
         
         # The house and the connection between rooms.
@@ -69,6 +71,40 @@ class House(object):
         self.guest_bedroom.north = self.library
         self.secret_room.north = self.casino
 	self.map = [[None, None, None, None], [None, None, None, None], [None, None, None, None], [None, None, None, None]]
+        
+        
+    def visit_all_rooms(self, current_room, visited_rooms=None, x=0, y=0, extremevalues=None):
+        if visited_rooms is None:
+            visited_rooms = []
+        if extremevalues is None:
+           extremevalues = {"x_min": x, "y_min": y, "x_max": x, "y_max": y}
+        else:
+            if y>y_max: extremevalues["y_max"]=y
+            if x>x_max: extremevalues["x_max"]=x
+            if y>y_min: extremevalues["y_min"]=y
+            if x>x_min: extremevalues["x_min"]=x
+            
+            
+        if current_room == False:
+            return
+        if current_room in visited_rooms:
+            return None
+        
+        print current_room.name, ":" , "(",x, ",",y,")", extremevalues
+        visited_rooms.append(current_room)
+        
+            
+        self.visit_all_rooms(current_room.north, visited_rooms, x=x, y=y+1) #kolla om det finns ett rum north om tex. the cellar och skicka in det i visit_all_rooms. Om det ej finns så är det false och då returnar den
+        self.visit_all_rooms(current_room.south, visited_rooms, x=x, y=y-1)
+        self.visit_all_rooms(current_room.east, visited_rooms, x=x+1, y=y)
+        self.visit_all_rooms(current_room.west, visited_rooms, x=x-1, y=y)
+        
+        
+       
+     
+    
+        
+        
 
 class Character(object):
 
