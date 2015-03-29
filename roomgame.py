@@ -25,6 +25,8 @@ class Room(object):
             things.append(str(obj))
         return "In " + self.name + " there are " + " and ".join(things)
     
+    def __repr__(self):
+	return self.name
     
     
 class House(object):
@@ -64,7 +66,7 @@ class House(object):
         self.casino.south = self.secret_room
         self.casino.west = self.library
         self.casino.east = self.master_bedroom
-        self.master_bedroom.north = self.kitchen
+        self.master_bedroom.north = self.corridor_east
         self.master_bedroom.west = self.casino
 	self.library.east = self.casino
         self.library.south = self.guest_bedroom
@@ -73,7 +75,7 @@ class House(object):
         self.starting_room = self.cellar
         
     def visit_all_rooms(self, current_room=None, visited_rooms=None, x=0, y=0, extremevalues=None, mapped_coordinates=None):
-	if current_room=None:
+	if current_room is None:
 	    current_room= self.starting_room	
 	if extremevalues is None:
 	    extremevalues = {"x_min": 0, "y_min": 0, "x_max": 0, "y_max": 0}	
@@ -107,13 +109,29 @@ class House(object):
         self.visit_all_rooms(current_room.west, visited_rooms, x=x-1, y=y, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
         
         return mapped_coordinates, extremevalues
-        
-    def print_map(self).
+
+    def pad_name(self, name):
+	name=name[4:] #remove "The " from name
+	name=name[:16] 
+	missing = 16-len(name)
+	return name+" "*missing
+
+    def draw_map(self):
 	mapped_coordinates, extremevalues = self.visit_all_rooms()
 	map_height = extremevalues["y_max"]-extremevalues["y_min"]+1
 	map_width = extremevalues["x_max"]-extremevalues["x_max"]+1
-	
-	print "
+	string = ""
+	for y in range(extremevalues["y_min"], extremevalues["y_max"]+1):
+	    for x in range(extremevalues["x_min"], extremevalues["x_max"]+1):
+		if x not in mapped_coordinates:
+                    name = ""
+		elif y not in mapped_coordinates[x]:
+                    name = ""
+		else:
+                    name = mapped_coordinates[x][y].name
+                string = string + self.pad_name(name) + " | "
+	    string = string +"\n"
+	return string
 	
 	
         
