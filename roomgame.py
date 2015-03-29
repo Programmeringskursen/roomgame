@@ -70,9 +70,11 @@ class House(object):
         self.library.south = self.guest_bedroom
         self.guest_bedroom.north = self.library
         self.secret_room.north = self.casino
+        self.starting_room = self.cellar
         
-        
-    def visit_all_rooms(self, current_room, visited_rooms=None, x=0, y=0, extremevalues=None, mapped_coordinates=None):
+    def visit_all_rooms(self, current_room=None, visited_rooms=None, x=0, y=0, extremevalues=None, mapped_coordinates=None):
+	if current_room=None:
+	    current_room= self.starting_room	
 	if extremevalues is None:
 	    extremevalues = {"x_min": 0, "y_min": 0, "x_max": 0, "y_max": 0}	
 	if mapped_coordinates is None:
@@ -99,19 +101,21 @@ class House(object):
 	    mapped_coordinates[x][y] = current_room
 	    visited_rooms.append(current_room)
 
-	self.visit_all_rooms(current_room.north, visited_rooms, x=x, y=y+1, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates) #kolla om det finns ett rum north om tex. the cellar och skicka in det i visit_all_rooms. Om det ej finns så är det false och då returnar den
-        self.visit_all_rooms(current_room.south, visited_rooms, x=x, y=y-1, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
+	self.visit_all_rooms(current_room.north, visited_rooms, x=x, y=y-1, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates) #kolla om det finns ett rum north om tex. the cellar och skicka in det i visit_all_rooms. Om det ej finns så är det false och då returnar den
+        self.visit_all_rooms(current_room.south, visited_rooms, x=x, y=y+1, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
         self.visit_all_rooms(current_room.east, visited_rooms, x=x+1, y=y, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
         self.visit_all_rooms(current_room.west, visited_rooms, x=x-1, y=y, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
         
         return mapped_coordinates, extremevalues
         
-        
-        
-       
-     
-    
-        
+    def print_map(self).
+	mapped_coordinates, extremevalues = self.visit_all_rooms()
+	map_height = extremevalues["y_max"]-extremevalues["y_min"]+1
+	map_width = extremevalues["x_max"]-extremevalues["x_max"]+1
+	
+	print "
+	
+	
         
 
 class Character(object):
