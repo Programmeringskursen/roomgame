@@ -70,34 +70,42 @@ class House(object):
         self.library.south = self.guest_bedroom
         self.guest_bedroom.north = self.library
         self.secret_room.north = self.casino
-	self.map = [[None, None, None, None], [None, None, None, None], [None, None, None, None], [None, None, None, None]]
         
         
-    def visit_all_rooms(self, current_room, visited_rooms=None, x=0, y=0, extremevalues=None):
-        if visited_rooms is None:
+    def visit_all_rooms(self, current_room, visited_rooms=None, x=0, y=0, extremevalues=None, mapped_coordinates=None):
+	if extremevalues is None:
+	    extremevalues = {"x_min": 0, "y_min": 0, "x_max": 0, "y_max": 0}	
+	if mapped_coordinates is None:
+	    mapped_coordinates = {}
+	if visited_rooms is None:
             visited_rooms = []
-        if extremevalues is None:
-           extremevalues = {"x_min": x, "y_min": y, "x_max": x, "y_max": y}
-        else:
-            if y>y_max: extremevalues["y_max"]=y
-            if x>x_max: extremevalues["x_max"]=x
-            if y>y_min: extremevalues["y_min"]=y
-            if x>x_min: extremevalues["x_min"]=x
-            
-            
         if current_room == False:
-            return
+            return mapped_coordinates, extremevalues
         if current_room in visited_rooms:
-            return None
+            return mapped_coordinates, extremevalues
+	if x>extremevalues["x_max"]:
+	    extremevalues["x_max"] = x
+	if x<extremevalues["x_min"]: 
+	    extremevalues["x_min"] = x
+	if y>extremevalues["y_max"]:
+	    extremevalues["y_max"] = y
+	if y<extremevalues["y_min"]:
+	    extremevalues["y_min"] = y
+	    return mapped_coordinates, extremevalues
+	else:
+	    current_position = {"xpos": x, "ypos": x}
+	    if x  not in mapped_coordinates:
+		mapped_coordinates[x] = {}
+	    mapped_coordinates[x][y] = current_room
+	    visited_rooms.append(current_room)
+
+	self.visit_all_rooms(current_room.north, visited_rooms, x=x, y=y+1, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates) #kolla om det finns ett rum north om tex. the cellar och skicka in det i visit_all_rooms. Om det ej finns så är det false och då returnar den
+        self.visit_all_rooms(current_room.south, visited_rooms, x=x, y=y-1, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
+        self.visit_all_rooms(current_room.east, visited_rooms, x=x+1, y=y, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
+        self.visit_all_rooms(current_room.west, visited_rooms, x=x-1, y=y, extremevalues=extremevalues, mapped_coordinates=mapped_coordinates)
         
-        print current_room.name, ":" , "(",x, ",",y,")", extremevalues
-        visited_rooms.append(current_room)
+        return mapped_coordinates, extremevalues
         
-            
-        self.visit_all_rooms(current_room.north, visited_rooms, x=x, y=y+1) #kolla om det finns ett rum north om tex. the cellar och skicka in det i visit_all_rooms. Om det ej finns så är det false och då returnar den
-        self.visit_all_rooms(current_room.south, visited_rooms, x=x, y=y-1)
-        self.visit_all_rooms(current_room.east, visited_rooms, x=x+1, y=y)
-        self.visit_all_rooms(current_room.west, visited_rooms, x=x-1, y=y)
         
         
        
