@@ -97,7 +97,6 @@ class House(object):
 	    extremevalues["y_min"] = y
 	    return mapped_coordinates, extremevalues
 	else:
-	    current_position = {"xpos": x, "ypos": x}
 	    if x  not in mapped_coordinates:
 		mapped_coordinates[x] = {}
 	    mapped_coordinates[x][y] = current_room
@@ -120,21 +119,36 @@ class House(object):
 	mapped_coordinates, extremevalues = self.visit_all_rooms()
 	map_height = extremevalues["y_max"]-extremevalues["y_min"]+1
 	map_width = extremevalues["x_max"]-extremevalues["x_max"]+1
-	string = ""
+	string = "_"*76+"\n|"
 	for y in range(extremevalues["y_min"], extremevalues["y_max"]+1):
+	    string2 = ""
 	    for x in range(extremevalues["x_min"], extremevalues["x_max"]+1):
 		if x not in mapped_coordinates:
                     name = ""
+		    string2 = string2 + "-"*19
 		elif y not in mapped_coordinates[x]:
-                    name = ""
+                    name = ""		
 		else:
                     name = mapped_coordinates[x][y].name
-                string = string + self.pad_name(name) + " | "
-	    string = string +"\n"
+		    room = mapped_coordinates[x][y]
+		string = string + self.pad_name(name) + self.horizontal_door_check(room)
+		string2 = string2 + self.vertical_door_check(room)
+	    string = string +"\n|" + string2 + "\n|"
 	return string
 	
+    def horizontal_door_check(self, room):
+	if room.east != False:
+	    return " - "
+	else:
+	    return " | "
+
+    def vertical_door_check(self, room):
+	string = "-"*9
+	if room.south != False:
+	    return string+"|"+string
+	else:
+	    return string+"-"+string
 	
-        
 
 class Character(object):
 
