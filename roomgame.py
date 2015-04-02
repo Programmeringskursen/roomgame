@@ -73,7 +73,8 @@ class House(object):
         self.guest_bedroom.north = self.library
         self.secret_room.north = self.casino
         self.starting_room = self.cellar
-        
+    
+    # Go through all rooms and make dictionaries.    
     def visit_all_rooms(self, current_room=None, visited_rooms=None, x=0, y=0, extremevalues=None, mapped_coordinates=None):
 	if current_room is None:
 	    current_room= self.starting_room	
@@ -115,19 +116,22 @@ class House(object):
 	missing = 16-len(name)
 	return name+" "*missing
 
+	#Make the dictionaries from visit_all_rooms into one long string.
     def draw_map(self):
 	mapped_coordinates, extremevalues = self.visit_all_rooms()
 	map_height = extremevalues["y_max"]-extremevalues["y_min"]+1
 	map_width = extremevalues["x_max"]-extremevalues["x_max"]+1
-	string = "_"*76+"\n|"
+	string = "|"+"_"*76+"\n|"
 	for y in range(extremevalues["y_min"], extremevalues["y_max"]+1):
 	    string2 = ""
 	    for x in range(extremevalues["x_min"], extremevalues["x_max"]+1):
 		if x not in mapped_coordinates:
                     name = ""
-		    string2 = string2 + "-"*19
+		    string2 = string2 + "_"*19
+		    room = None
 		elif y not in mapped_coordinates[x]:
-                    name = ""		
+                    name = ""
+		    room = None		
 		else:
                     name = mapped_coordinates[x][y].name
 		    room = mapped_coordinates[x][y]
@@ -135,19 +139,23 @@ class House(object):
 		string2 = string2 + self.vertical_door_check(room)
 	    string = string +"\n|" + string2 + "\n|"
 	return string
-	
+
     def horizontal_door_check(self, room):
-	if room.east != False:
-	    return " - "
+	if room == None:
+	    return " | "
+	elif room.east != False:
+	    return " > "
 	else:
 	    return " | "
 
     def vertical_door_check(self, room):
-	string = "-"*9
-	if room.south != False:
-	    return string+"|"+string
+	string = "_"*9
+	if room == None:
+	    return string+"_"+string
+	elif room.south != False:
+	    return string+"/"+string
 	else:
-	    return string+"-"+string
+	    return string+"_"+string
 	
 
 class Character(object):
