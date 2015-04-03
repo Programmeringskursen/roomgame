@@ -8,10 +8,11 @@ class Things(object):
     def __init__(self, name, smell, position):
         self.content = []
         self.name = name
+	self.smell = smell
 	position.content.append(self)
 
     def stink(self):
-	if character.
+	return "It smells "+self.smell+"."
 
     def __str__(self):
 	return self.name
