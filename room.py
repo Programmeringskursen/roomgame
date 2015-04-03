@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import house
 import character
+import things
 class Room(object):
     "Our little game"
     
@@ -13,7 +14,13 @@ class Room(object):
 	self.south = False
 	self.west = False
 	self.east = False
-        
+    
+    def stink(self):
+	smells = []
+	for obj in self.content:
+	    smells.append(str(obj.smell))
+	return "It reeks of a mixture of "+" and ".join(smells)+"."	    	
+    
     def place_here(self, obj):
         self.content.append(obj)
         
