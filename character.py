@@ -9,6 +9,7 @@ class Character(object):
 	self.content = []
 	self.name = name
 	self.position = position
+	self.scope = None
 	
     def choose_player(self, name):
 	if position != self.hallway:
@@ -36,13 +37,14 @@ class Character(object):
 	self.position.content.append(obj)
 	return "You dropped "+str(obj)+"."
 
-    def look_inside(self, obj) #look inside objects. makes it possible to pick up things from inside objects. eg a single cigarette from inside a package.
+    def look_inside(self, obj): #look inside objects. makes it possible to pick up things from inside objects. eg a single cigarette from inside a package.
 	if obj not in self.position.content or self.content or self.scope:
 	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
 	self.scope = obj
 	return "You see "+" and ".join(obj.content)+"."
 
     def move(self, direction):
+	self.scope = None
         if direction=="north":
             if self.position.north == False:
                 return "You can't, there is no door here."
