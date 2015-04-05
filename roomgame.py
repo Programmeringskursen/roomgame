@@ -11,6 +11,7 @@ my_house=house.House()
 
 #Characters
 player = character.Character("Murneh", my_house.hallway)
+player2 = character.Character("Elin", my_house.hallway) #kan den här också heta player?
 
 #Items
 muddy_shoes = things.Things("Muddy Shoes", "mud", my_house.hallway)

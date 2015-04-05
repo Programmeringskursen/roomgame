@@ -2,12 +2,23 @@
 # -*- coding: utf-8 -*-
 import room
 import house
+import things
 class Character(object):
 
     def __init__(self, name, position):
 	self.content = []
 	self.name = name
 	self.position = position
+	
+    def choose_player(self, name):
+	if position != self.hallway:
+	    return "You must be in the hallway to change player"
+	if name=="Elin":
+	    return "You are playing as Elin"
+	if name=="Murneh":
+	    return "You are playing as Murneh"
+	return "You must choose either Murneh or Elin"
+    
 
     def pick_up(self, obj):
 	"Pick up things from the room the character is in."
@@ -15,7 +26,7 @@ class Character(object):
 	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
 	self.position.content.remove(obj)
 	self.content.append(obj)
-	return "You picked up "+str(obj)+"."
+	return "You picked up "+obj.name+"."
 
     def drop(self, obj):
 	"Drop things in the characters current room."
