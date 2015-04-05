@@ -23,10 +23,14 @@ class Character(object):
 
     def pick_up(self, obj):
 	"Pick up things from the room the character is in."
-	if not obj in self.position.content:
+	if not obj in self.position.content or self.scope:
 	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
-	self.position.content.remove(obj)
-	self.content.append(obj)
+	elif obj in self.scope:
+	    self.scope.content.remove(obj)
+	    self.content.append(obj)
+	else:
+	    self.position.content.remove(obj)
+	    self.content.append(obj)
 	return "You picked up "+obj.name+"."
 
     def drop(self, obj):
