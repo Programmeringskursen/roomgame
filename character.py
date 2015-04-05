@@ -25,6 +25,8 @@ class Character(object):
 	"Pick up things from the room the character is in."
 	if not obj in self.position.content or self.scope:
 	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
+	elif len(self.content)>10:
+	    return "You can't carry anymore."	
 	elif obj in self.scope:
 	    self.scope.content.remove(obj)
 	    self.content.append(obj)
