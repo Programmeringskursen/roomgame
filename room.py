@@ -19,7 +19,7 @@ class Room(object):
 	smells = []
 	for obj in self.content:
 	    smells.append(str(obj.smell))
-	return "It reeks of a mixture of "+" and ".join(smells)+"."	    	
+	return "It smells like "+" and ".join(smells)+" over a background of "+self.smell+"."	    	
     
     def place_here(self, obj):
         self.content.append(obj)
@@ -32,7 +32,7 @@ class Room(object):
         things = []
         for obj in self.content:
             things.append(str(obj))
-        return "In " + self.name + " there are " + " and ".join(things)
+        return "In " + self.name + " there are " + " and ".join(things)+"."
     
     def __repr__(self):
 	return self.name
