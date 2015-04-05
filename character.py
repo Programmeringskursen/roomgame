@@ -36,7 +36,11 @@ class Character(object):
 	self.position.content.append(obj)
 	return "You dropped "+str(obj)+"."
 
-
+    def look_inside(self, obj) #look inside objects. makes it possible to pick up things from inside objects. eg a single cigarette from inside a package.
+	if obj not in self.position.content or self.content or self.scope:
+	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
+	self.scope = obj
+	return "You see "+" and ".join(obj.content)+"."
 
     def move(self, direction):
         if direction=="north":
