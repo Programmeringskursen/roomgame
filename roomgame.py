@@ -42,5 +42,7 @@ butchers_knife = things.Things("Butchers knife", "not much", knife_stand)
 filet_knife = things.Things("Filet knife", "fishy", knife_stand)
 bread_knife = things.Things("Bread knife", "not much", knife_stand)
 
+secret_key = things.Key("Secret Key", my_house.secret_room, my_house.library)
+
 
 

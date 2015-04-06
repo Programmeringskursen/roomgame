@@ -19,3 +19,13 @@ class Things(object):
 
     def __repr__(self):
 	return self.name
+
+class Key(object):
+
+    def __init__(self, name, unlock, position):
+	self.name = name
+	self.unlock = unlock
+	position.content.append(self)
+
+    def __str__(self):
+	return self.name

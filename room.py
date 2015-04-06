@@ -6,10 +6,11 @@ import things
 class Room(object):
     "Our little game"
     
-    def __init__(self, name, smell):
+    def __init__(self, name, smell, lock):
         self.content = []
         self.name = name
 	self.smell = smell
+	self.lock = lock
 	self.north = False
 	self.south = False
 	self.west = False

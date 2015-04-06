@@ -6,18 +6,18 @@ class House(object):
     "Map of the house" #comment explanation
     
     def __init__(self):
-	self.cellar = room.Room("The Cellar", "Rotten")
-	self.hallway = room.Room("The Hallway", "Shoes")
-	self.casino = room.Room("The Casino", "Martinis")
-	self.library = room.Room("The Library", "Old books")
-	self.living_room = room.Room("The Living Room", "Flowers")
-	self.toilet = room.Room("The Toilet", "Air Freshener")
-	self.kitchen = room.Room("The Kitchen", "Tasty soup")
-	self.secret_room = room.Room("The Secret Room", "A serious smell")
-	self.master_bedroom = room.Room("The Master Bedroom", "Too much perfume")
-	self.guest_bedroom = room.Room("The Guest Bedroom", "Lemons")
-        self.corridor_west = room.Room("The West Corridor", "Rat poison")
-        self.corridor_east = room.Room("The East Corridor", "Cheese")
+	self.cellar = room.Room("The Cellar", "Rotten", False)
+	self.hallway = room.Room("The Hallway", "Shoes", False)
+	self.casino = room.Room("The Casino", "Martinis", False)
+	self.library = room.Room("The Library", "Old books", False)
+	self.living_room = room.Room("The Living Room", "Flowers", False)
+	self.toilet = room.Room("The Toilet", "Air Freshener", False)
+	self.kitchen = room.Room("The Kitchen", "Tasty soup", False)
+	self.secret_room = room.Room("The Secret Room", "A serious smell", True)
+	self.master_bedroom = room.Room("The Master Bedroom", "Too much perfume", False)
+	self.guest_bedroom = room.Room("The Guest Bedroom", "Lemons", False)
+        self.corridor_west = room.Room("The West Corridor", "Rat poison", False)
+        self.corridor_east = room.Room("The East Corridor", "Cheese", False)
         
         
         # The house and the connection between rooms.
