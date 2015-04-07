@@ -6,7 +6,7 @@ import things
 class Room(object):
     "Our little game"
     
-    def __init__(self, name, smell, lock):
+    def __init__(self, name, smell, lock, keys_required):
         self.content = []
         self.name = name
 	self.smell = smell
@@ -15,7 +15,8 @@ class Room(object):
 	self.south = False
 	self.west = False
 	self.east = False
-    
+	self.keys_required = keys_required  
+
     def stink(self):
 	smells = []
 	for obj in self.content:

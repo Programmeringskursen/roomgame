@@ -98,19 +98,19 @@ class Character(object):
                 return self.check_lock(self.position.east)
 
     def check_lock(self, room):
-	access = False	
+	key_count = 0
 	if room.lock == False:
 	    self.position = room
 	    return "You enter the "+self.position.name+"."
 	else:
 	    for Key in self.keychain:
 		if Key.unlock == room:
-		    access = True
-	    if access == True:
+		    key_count = key_count+1
+	    if key_count == room.keys_required:
 		self.position = room	
 	        return "You unlock the door and enter the "+self.position.name+"."
 	    else:
-		return "You can't, it's locked."
+		return "You can't, it's locked. Maybe you still need something to unlock it."
 	    
 
     def __str__(self):
