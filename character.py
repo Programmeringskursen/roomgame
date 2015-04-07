@@ -63,13 +63,24 @@ class Character(object):
 
     def look_inside(self, obj): #look inside objects. makes it possible to pick up things from inside objects. eg a single cigarette from inside a package.
 	things = []	
-	if obj not in self.position.content or self.content or self.scope.content:
-	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
-	else:
+	if obj in self.position.content:
 	    self.scope = obj
 	    for Things in obj.content:
                 things.append(str(Things))
 	    return "You see "+" and ".join(things)+"."
+	if obj in self.content:
+	    self.scope = obj
+	    for Things in obj.content:
+                things.append(str(Things))
+	    return "You see "+" and ".join(things)+"."
+	if obj in self.scope.content:
+	    self.scope = obj
+	    for Things in obj.content:
+                things.append(str(Things))
+	    return "You see "+" and ".join(things)+"."
+	
+	else:
+	    return "THERE IS NO SUCH THING! ARE YOU HALLUCINATING?"
 
     def move(self, direction):
 	self.scope = self
